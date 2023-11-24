@@ -6,8 +6,10 @@ import random
 
 
 # Create your views here.
+def IndexView(request):
+  return render(request, 'index.html')
 
-def TestView(request):
+def ResultsView(request):
 
   x = [random.randint(1, 100) for _ in range(200)]
 
@@ -21,4 +23,4 @@ def TestView(request):
   data = imgdata.getvalue()
 
   context = { 'fig' : data } 
-  return render(request, 'index.html', context)
+  return render(request, 'results.html', context)

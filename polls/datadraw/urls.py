@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import TestView
+from .views import IndexView, ResultsView
 
 urlpatterns = [
-path('', TestView, name='home')
+path('', IndexView, name='home'),
+path('results/', ResultsView, name='results')
 ]
