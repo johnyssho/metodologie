@@ -3,11 +3,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 from io import StringIO
 import random
+from .models import Question
+from django.http import HttpResponse
 
 
 # Create your views here.
 def IndexView(request):
-  return render(request, 'index.html')
+
+  questions = Question.objects.all()
+  context = { 'questions' : questions }
+
+  if request.method == 'POST':
+      choice = request.POST['choice']
+      context = { 'questions' : questions, 'choice' : choice }
+  return render(request, 'index.html', context)
 
 def ResultsView(request):
 

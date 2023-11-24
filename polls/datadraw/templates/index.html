@@ -1,7 +1,23 @@
-<div>Index</div>
+<div>Otázky:</div>
 
+{% if choice %}
+<br>
+<p>Poslední vote byl: {{ choice }}</p>
+{% endif %}
 
 <br>
+
+{% for q in questions %}
+<div>{{ q.question_text }}</div>
+<div>
+  <form action="{% url 'home' %}" method="post">
+    {% csrf_token %}
+    <input type="number" name="choice" min="1" max="100" />
+    <input type="submit" value="Vote">
+    </form>
+</div>
+{% endfor %}
+
 <br>
 <br>
 <button><a href={% url 'results' %} style="text-decoration:none">Results</a></button>
