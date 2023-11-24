@@ -2,17 +2,17 @@ from django.shortcuts import render
 import matplotlib.pyplot as plt
 import numpy as np
 from io import StringIO
+import random
 
 
 # Create your views here.
 
 def TestView(request):
 
-  x = np.arange(0,np.pi*3,.1)
-  y = np.sin(x)
+  x = [random.randint(1, 100) for _ in range(200)]
 
-  fig = plt.figure()
-  plt.plot(x,y)
+  fig = plt.figure(figsize=[10, 6])
+  plt.hist(x, bins=35)
 
   imgdata = StringIO()
   fig.savefig(imgdata, format='svg')
