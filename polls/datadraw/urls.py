@@ -3,5 +3,5 @@ from .views import IndexView, ResultsView
 
 urlpatterns = [
 path('', IndexView, name='home'),
-path('results/', ResultsView, name='results'),
+path('results/<int:pk>', ResultsView, name='results'),
 ]

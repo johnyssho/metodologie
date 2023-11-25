@@ -17,8 +17,11 @@
     <input type="submit" value="Vote">
     </form>
 </div>
+<div><button><a href={% url 'results' q.pk %} style="text-decoration:none">Results</a></button></div>
+<br>
+<br>
 {% endfor %}
 
 <br>
 <br>
-<button><a href={% url 'results' %} style="text-decoration:none">Results</a></button>
+{% comment %} <button><a href={% url 'results' %} style="text-decoration:none">Results</a></button> {% endcomment %}

@@ -24,18 +24,19 @@ def IndexView(request):
 
   return render(request, 'index.html', context)
 
-def ResultsView(request):
+def ResultsView(request, pk):
 
-  x = [random.randint(1, 100) for _ in range(200)]
+  # x = [random.randint(1, 100) for _ in range(200)]
 
-  fig = plt.figure(figsize=[10, 6])
-  plt.hist(x, bins=35)
+  # fig = plt.figure(figsize=[10, 6])
+  # plt.hist(x, bins=35)
 
-  imgdata = StringIO()
-  fig.savefig(imgdata, format='svg')
-  imgdata.seek(0)
+  # imgdata = StringIO()
+  # fig.savefig(imgdata, format='svg')
+  # imgdata.seek(0)
 
-  data = imgdata.getvalue()
+  # data = imgdata.getvalue()
 
+  data = pk
   context = { 'fig' : data } 
   return render(request, 'results.html', context)
