@@ -1,4 +1,4 @@
-<div>Otázka:</div>
+<div>Otázky:</div>
 
 {% if choice %}
 <br>
@@ -8,20 +8,41 @@
 <br>
 
 {% for q in questions %}
-<div>{{ q.question_text }}</div>
+<div style="font-weight:bold">{{ q.question_text }}</div>
 <div>
+  <br>
+  <div>Manuální zadávání hodnot:</div>
   <form action="{% url 'home' %}" method="post">
     {% csrf_token %}
     <input style="display:none" name="question" value="{{ q.pk }}">
     <input type="number" name="choice" min="1" max="100" />
     <input type="submit" value="Vote">
     </form>
+
+    <div>Přidat x random odpovědí od 1 do 100:</div>
+  <form action="{% url 'random' q.pk %}" method="post">
+    {% csrf_token %}
+    <div>Kolik odpovědí?</div><input type="number" name="choice" min="1" max="1000" />
+    <input type="submit" value="Add">
+    </form>
 </div>
-<div><button><a href={% url 'results' q.pk %} style="text-decoration:none">Results</a></button></div>
+
+<div>
+  <form action="{% url 'results' q.pk %}" method="post">
+    {% csrf_token %}
+    <select name="choice" id="type-of-graph">
+      <option value="hist">hist</option>
+      <option value="boxplot">boxplot</option>
+    </select>
+    <input type="submit" value="Results">
+    </form>
+</div>
 <br>
 <br>
 {% endfor %}
 
 <br>
 <br>
-{% comment %} <button><a href={% url 'results' %} style="text-decoration:none">Results</a></button> {% endcomment %}
+
+<p>Odstranit všechny choices:</p>
+<button><a href={% url 'delete_all_choices' %} style="text-decoration:none">odstranit</a></button>

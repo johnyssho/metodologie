@@ -24,19 +24,43 @@ def IndexView(request):
 
   return render(request, 'index.html', context)
 
+def AddRandView(request, pk):
+
+  choice = request.POST['choice']
+  q = Question.objects.filter(pk = pk).first()
+  random_nums = [random.randint(1, 100) for _ in range(int(choice))] 
+  added = []
+  for x in random_nums:
+    ch = Choice(question = q, choice = x)
+    ch.save() 
+    added.append('Added number ' + str(x) + ' to question: ' + q.question_text)
+
+  return render(request, 'random.html', { 'added' : added })
+
 def ResultsView(request, pk):
 
-  # x = [random.randint(1, 100) for _ in range(200)]
+  type_of_graph = request.POST['choice']
 
-  # fig = plt.figure(figsize=[10, 6])
-  # plt.hist(x, bins=35)
+  choices = Choice.objects.all().filter(question=Question.objects.all().filter(pk=pk).first())
+  array = []
+  for x in choices:
+    array.append(x.choice)
 
-  # imgdata = StringIO()
-  # fig.savefig(imgdata, format='svg')
-  # imgdata.seek(0)
+  fig = plt.figure(figsize=[10, 6])
+  if type_of_graph == 'hist':
+    plt.hist(array, bins=35)
+  elif type_of_graph == 'boxplot':
+    plt.boxplot(array)
 
-  # data = imgdata.getvalue()
+  imgdata = StringIO()
+  fig.savefig(imgdata, format='svg')
+  imgdata.seek(0)
 
-  data = pk
+  data = imgdata.getvalue()
+
   context = { 'fig' : data } 
   return render(request, 'results.html', context)
+
+def DeleteChoicesView(request):   
+  Choice.objects.all().delete()
+  return HttpResponse("Deleted all choices")
