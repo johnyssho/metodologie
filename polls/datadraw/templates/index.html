@@ -1,11 +1,10 @@
-<div>Otázky:</div>
+<h1>Otázky:</h1>
 
 {% if choice %}
-<br>
 <p>Poslední vote byl: {{ choice }}, otázka: {{ question }}</p>
 {% endif %}
 
-<br>
+<hr>
 
 {% for q in questions %}
 <div style="font-weight:bold">{{ q.question_text }}</div>
@@ -38,11 +37,9 @@
     </form>
 </div>
 <br>
-<br>
+<hr>
 {% endfor %}
 
 <br>
-<br>
-
 <p>Odstranit všechny choices:</p>
 <button><a href={% url 'delete_all_choices' %} style="text-decoration:none">odstranit</a></button>
