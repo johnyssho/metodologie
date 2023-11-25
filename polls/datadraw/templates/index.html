@@ -15,14 +15,14 @@
     {% csrf_token %}
     <input style="display:none" name="question" value="{{ q.pk }}">
     <input type="number" name="choice" min="1" max="100" />
-    <input type="submit" value="Vote">
+    <input type="submit" value="Hlasovat">
     </form>
 
     <div>Přidat x random odpovědí od 1 do 100:</div>
   <form action="{% url 'random' q.pk %}" method="post">
     {% csrf_token %}
     <div>Kolik odpovědí?</div><input type="number" name="choice" min="1" max="1000" />
-    <input type="submit" value="Add">
+    <input type="submit" value="Přidat">
     </form>
 </div>
 
@@ -33,7 +33,7 @@
       <option value="hist">hist</option>
       <option value="boxplot">boxplot</option>
     </select>
-    <input type="submit" value="Results">
+    <input type="submit" value="Výsledky">
     </form>
 </div>
 <br>
