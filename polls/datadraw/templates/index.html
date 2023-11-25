@@ -1,8 +1,8 @@
-<div>Otázky:</div>
+<div>Otázka:</div>
 
 {% if choice %}
 <br>
-<p>Poslední vote byl: {{ choice }}</p>
+<p>Poslední vote byl: {{ choice }}, otázka: {{ question }}</p>
 {% endif %}
 
 <br>
@@ -12,6 +12,7 @@
 <div>
   <form action="{% url 'home' %}" method="post">
     {% csrf_token %}
+    <input style="display:none" name="question" value="{{ q.pk }}">
     <input type="number" name="choice" min="1" max="100" />
     <input type="submit" value="Vote">
     </form>

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from io import StringIO
 import random
-from .models import Question
+from .models import Question, Choice
 from django.http import HttpResponse
 
 
@@ -15,7 +15,13 @@ def IndexView(request):
 
   if request.method == 'POST':
       choice = request.POST['choice']
-      context = { 'questions' : questions, 'choice' : choice }
+      question = request.POST['question']
+      context = { 'questions' : questions, 'choice' : choice, 'question' : question }
+      
+      q = Question.objects.filter(pk = question).first()
+      ch = Choice(question = q, choice = choice)
+      ch.save()     
+
   return render(request, 'index.html', context)
 
 def ResultsView(request):
